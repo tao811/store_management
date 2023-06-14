@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="./vue.js"></script>
+    <link rel="stylesheet" href="./index.css">
+
+</head>
+<body>
+    <div id="root">
+        <div class="checkStore">
+            <span>选择店铺</span>
+            <select class="selectStore" @click="newStore" v-model="store">
+                <option>测试店铺</option>
+                <option>测试店铺1</option>
+                <option>测试店铺2</option>
+            </select>
+            <button class="add" @click="newReport">新建报告</button>
+        </div>
+        <table class="storeInfo">
+            <thead>
+                <th class="storeName">店铺名</th>
+                <th class="orderName">任务名称</th>
+                <th class="orderInfo">任务信息</th>
+                <th class="orderState">任务状态</th>
+                <th class="option">操作</th>
+            </thead>
+            <tbody v-for="(o, index) in data_list.slice(0, displayCount)" :key="o.search_id">
+                <tr>
+                    <td>{{o.isp_no}}</td>
+                    <td>{{o.search_type}}</td>
+                    <td>{{o.search_condition}}</td>
+                    <td class="orderState-yes"><span></span></td>
+                    <td class="download"><button>下载</button></td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="footer">
+            <span class="statistics">共<span>{{numsOfData}}</span>条数据</span>
+            <div class="page rightFloat">
+                <select class="page_num" v-model="numsOfOnePage">
+                    <option value="10">10条/页</option>
+                    <option value="50">50条/页</option>
+                    <option value="100">100条/页</option>
+                </select>
+                <button class="prePage"><</button>
+                <!-- <button v-for="b in pageNum"></button> -->
+                <button class="nextPage">></button>
+                <span>跳至 <input placeholder="1">/ {{page_num}} 页</span>
+            </div>
+        </div>
+        <div class="resportForm" v-show="newReportForm">
+            <div class="header">
+                <span class="title" @click="newReport">新建报告</span>
+                <span class="close" @click="close">×</span>
+            </div>
+            <div class="body">
+                报告名称<br>
+                <input type="text" placeholder="请填写报告名称"><br>
+                报告人名称<br>
+                <input type="text" placeholder="请填写报告人姓名"><br>
+                时间范围<br>
+                <input type="date"> 到：<input type="date"><br>
+                详细内容<br>
+                <textarea cols="60" rows="5" placeholder="请输入报告内容"></textarea><br>
+            </div>
+            <div class="form_option">
+                <button class="submit" @click="submitReport">提交</button>
+                <button class="save" @click="saveReport">保存</button>
+            </div>
+        </div>
+    </div>
+</body>
+<script src="./test.json"></script>
+<script src="./index.js"></script>
+</html>
